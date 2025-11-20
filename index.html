@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthlooms - Sustainable Fashion</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #e9c46a;
+            --accent-color: #e76f51;
+            --dark-color: #264653;
+            --light-color: #f8f9fa;
+            --sale-red: #ff3f6c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            padding-top: 80px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #282c3f;
+            padding: 0 15px;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 0;
+            padding: 15px;
+            min-width: 250px;
+        }
+        
+        .dropdown-item {
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f5f5f6;
+        }
+        
+        .dropdown-header {
+            font-weight: 600;
+            color: var(--dark-color);
+            padding: 5px 15px;
+            margin-top: 10px;
+        }
+        
+        .search-box {
+            background-color: #f5f5f6;
+            border-radius: 4px;
+            padding: 10px 15px;
+            border: none;
+            width: 100%;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 1px #d4d5d9;
+        }
+        
+        .action-icons .icon {
+            margin-left: 20px;
+            font-size: 1.2rem;
+            color: #282c3f;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .action-icons .icon:hover {
+            color: var(--primary-color);
+        }
+        
+        .badge-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--sale-red);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Sale Banner */
+        .sale-banner {
+            background: linear-gradient(90deg, #ff3f6c, #ff6b3f);
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Category Section */
+        .category-section {
+            padding: 40px 0;
+        }
+        
+        .category-card {
+            border: none;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-img {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        /* Product Section */
+        .product-section {
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .product-card {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--sale-red);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+        
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #ccc;
+        }
+        
+        .wishlist-btn.active {
+            color: var(--sale-red);
+        }
+        
+        .wishlist-btn:hover {
+            color: var(--sale-red);
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: #282c3f;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #94969f;
+            margin-left: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .discount {
+            color: var(--sale-red);
+            font-weight: 600;
+            margin-left: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-add-to-cart:hover {
+            background-color: var(--dark-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+        }
+        
+        .footer ul li a:hover {
+            color: white;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        /* Cart Sidebar */
+        .offcanvas-header {
+            border-bottom: 1px solid #eaeaec;
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid #eaeaec;
+            padding: 15px 0;
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            padding-left: 15px;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #282c3f;
+            font-weight: 600;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            background-color: #f5f5f6;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity {
+            margin: 0 10px;
+            font-weight: 600;
+        }
+        
+        .remove-item {
+            color: #94969f;
+            background: none;
+            border: none;
+            margin-left: auto;
+        }
+        
+        .cart-summary {
+            border-top: 1px solid #eaeaec;
+            padding-top: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 50vh;
+            }
+            
+            .action-icons .icon {
+                margin-left: 10px;
+            }
+            
+            .navbar-nav {
+                margin-top: 10px;
+            }
+        }
+        
+        /* Notification */
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1050;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sale Banner -->
+    <div class="sale-banner">
+        <div class="container">
+            FLAT 50% OFF ON ALL PRODUCTS | USE CODE: EARTH50 | FREE SHIPPING ON ORDERS ABOVE 999rs
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex align-items-center py-2">
+                <!-- Logo -->
+                <a class="logo" href="#">
+                    <span class="text-green-600">Earth</span><span class="text-amber-500">looms</span>
+                </a>
+
+                <!-- Navigation -->
+                <ul class="navbar-nav flex-row ms-4 d-none d-lg-flex">
+                    <!-- Men Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Men
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-header">Topwear</div>
+                            <li><a class="dropdown-item" href="#">T-Shirts (12)</a></li>
+                            <li><a class="dropdown-item" href="#">Casual Shirts (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Formal Shirts (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Sweatshirts (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Sweaters (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Jackets (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Blazers (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Suits (4)</a></li>
+                            
+                            <div class="dropdown-header">Bottomwear</div>
+                            <li><a class="dropdown-item" href="#">Jeans (11)</a></li>
+                            <li><a class="dropdown-item" href="#">Casual Trousers (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Formal Trousers (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Shorts (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Track Pants (5)</a></li>
+                            
+                            <div class="dropdown-header">Footwear</div>
+                            <li><a class="dropdown-item" href="#">Casual Shoes (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Sports Shoes (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Formal Shoes (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Sneakers (12)</a></li>
+                            <li><a class="dropdown-item" href="#">Sandals (5)</a></li>
+                            
+                            <div class="dropdown-header">Accessories</div>
+                            <li><a class="dropdown-item" href="#">Watches (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Belts (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Wallets (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Sunglasses (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Caps & Hats (9)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Women Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Women
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-header">Indian & Fusion Wear</div>
+                            <li><a class="dropdown-item" href="#">Kurtas & Suits (12)</a></li>
+                            <li><a class="dropdown-item" href="#">Kurtis & Tunics (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Sarees (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Ethnic Dresses (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Lehengas (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Blouses (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Dupattas (4)</a></li>
+                            
+                            <div class="dropdown-header">Western Wear</div>
+                            <li><a class="dropdown-item" href="#">Dresses (11)</a></li>
+                            <li><a class="dropdown-item" href="#">Tops & Tees (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Shirts & Blouses (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Sweaters (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Jackets (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Blazers (5)</a></li>
+                            
+                            <div class="dropdown-header">Bottomwear</div>
+                            <li><a class="dropdown-item" href="#">Jeans (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Trousers (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Leggings (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Skirts (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Shorts (5)</a></li>
+                            
+                            <div class="dropdown-header">Footwear</div>
+                            <li><a class="dropdown-item" href="#">Flats (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Heels (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Boots (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Sports Shoes (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Sandals (9)</a></li>
+                            
+                            <div class="dropdown-header">Accessories</div>
+                            <li><a class="dropdown-item" href="#">Handbags (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Jewelry (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Watches (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Sunglasses (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Scarves (5)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Kids Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Kids
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-header">Boys Clothing</div>
+                            <li><a class="dropdown-item" href="#">T-Shirts (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Shirts (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Shorts (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Jeans (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Trousers (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Sweaters (4)</a></li>
+                            <li><a class="dropdown-item" href="#">Jackets (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Blazers (3)</a></li>
+                            
+                            <div class="dropdown-header">Girls Clothing</div>
+                            <li><a class="dropdown-item" href="#">Dresses (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Tops (8)</a></li>
+                            <li><a class="dropdown-item" href="#">T-shirts (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Skirts (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Leggings (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Jeans (4)</a></li>
+                            <li><a class="dropdown-item" href="#">Sweaters (3)</a></li>
+                            <li><a class="dropdown-item" href="#">Jackets (4)</a></li>
+                            
+                            <div class="dropdown-header">Infants</div>
+                            <li><a class="dropdown-item" href="#">Rompers (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Bodysuits (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Sleepwear (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Sets (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Tops & Bottoms (4)</a></li>
+                            
+                            <div class="dropdown-header">Footwear</div>
+                            <li><a class="dropdown-item" href="#">Casual Shoes (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Sports Shoes (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Sandals (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Slippers (4)</a></li>
+                            <li><a class="dropdown-item" href="#">Formal Shoes (3)</a></li>
+                            
+                            <div class="dropdown-header">Toys & Games</div>
+                            <li><a class="dropdown-item" href="#">Soft Toys (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Educational Toys (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Outdoor Games (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Puzzles (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Board Games (4)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Home & Living Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home & Living
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-header">Bed Linens</div>
+                            <li><a class="dropdown-item" href="#">Bedsheets (12)</a></li>
+                            <li><a class="dropdown-item" href="#">Bed Covers (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Quilts (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Pillows (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Pillow Covers (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Blankets (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Mattress Protectors (5)</a></li>
+                            
+                            <div class="dropdown-header">Bath</div>
+                            <li><a class="dropdown-item" href="#">Bath Towels (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Hand Towels (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Bathrobes (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Bath Mats (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Shower Curtains (4)</a></li>
+                            
+                            <div class="dropdown-header">Home Decor</div>
+                            <li><a class="dropdown-item" href="#">Wall Art (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Clocks (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Photo Frames (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Candles (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Vases (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Showpieces (4)</a></li>
+                            
+                            <div class="dropdown-header">Kitchen & Dining</div>
+                            <li><a class="dropdown-item" href="#">Dinnerware (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Cookware (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Cutlery (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Glassware (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Kitchen Tools (5)</a></li>
+                            
+                            <div class="dropdown-header">Furniture</div>
+                            <li><a class="dropdown-item" href="#">Sofas (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Chairs (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Tables (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Storage (4)</a></li>
+                            <li><a class="dropdown-item" href="#">Decorative (3)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Accessories Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Accessories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-header">Jewelry</div>
+                            <li><a class="dropdown-item" href="#">Necklaces (12)</a></li>
+                            <li><a class="dropdown-item" href="#">Earrings (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Rings (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Bracelets (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Anklets (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Brooches (5)</a></li>
+                            
+                            <div class="dropdown-header">Watches</div>
+                            <li><a class="dropdown-item" href="#">Analog Watches (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Digital Watches (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Smart Watches (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Sports Watches (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Luxury Watches (5)</a></li>
+                            
+                            <div class="dropdown-header">Bags & Luggage</div>
+                            <li><a class="dropdown-item" href="#">Handbags (11)</a></li>
+                            <li><a class="dropdown-item" href="#">Backpacks (10)</a></li>
+                            <li><a class="dropdown-item" href="#">Wallets (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Luggage (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Travel Bags (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Clutches (5)</a></li>
+                            
+                            <div class="dropdown-header">Eyewear</div>
+                            <li><a class="dropdown-item" href="#">Sunglasses (9)</a></li>
+                            <li><a class="dropdown-item" href="#">Reading Glasses (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Frames (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Contact Lenses (6)</a></li>
+                            
+                            <div class="dropdown-header">Headwear</div>
+                            <li><a class="dropdown-item" href="#">Caps (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Hats (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Beanies (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Headbands (5)</a></li>
+                            
+                            <div class="dropdown-header">Other Accessories</div>
+                            <li><a class="dropdown-item" href="#">Belts (7)</a></li>
+                            <li><a class="dropdown-item" href="#">Scarves (6)</a></li>
+                            <li><a class="dropdown-item" href="#">Ties (5)</a></li>
+                            <li><a class="dropdown-item" href="#">Socks (8)</a></li>
+                            <li><a class="dropdown-item" href="#">Phone Cases (7)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Search Bar -->
+                <div class="flex-grow-1 mx-4">
+                    <input type="text" class="search-box" placeholder="Search for products, brands and more">
+                </div>
+
+                <!-- Action Icons -->
+                <div class="action-icons d-flex align-items-center">
+                    <div class="dropdown">
+                        <a class="icon dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="far fa-user"></i>
+                            <span class="d-none d-md-inline ms-1">Profile</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="far fa-user me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="far fa-heart me-2"></i> Wishlist</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-box me-2"></i> Orders</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-gift me-2"></i> Gift Cards</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                    
+                    <a class="icon" href="#" data-bs-toggle="offcanvas" data-bs-target="#wishlistSidebar">
+                        <i class="far fa-heart"></i>
+                        <span class="badge-count" id="wishlist-count">0</span>
+                    </a>
+                    
+                    <a class="icon" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="badge-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Sustainable Fashion for a Better World</h1>
+                    <p class="lead mb-4">Earthlooms brings you eco-friendly clothing made from organic materials with minimal environmental impact.</p>
+                    <a href="#products" class="btn btn-primary btn-lg px-4 me-2">Shop Now</a>
+                    <a href="#categories" class="btn btn-outline-light btn-lg px-4">Explore Categories</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="category-section" id="categories">
+        <div class="container">
+            <h2 class="text-center mb-5">Shop By Category</h2>
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top category-img" alt="Men's Clothing">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Men</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top category-img" alt="Women's Clothing">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Women</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top category-img" alt="Kids Clothing">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Kids</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card category-card">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top category-img" alt="Accessories">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Accessories</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="product-section" id="products">
+        <div class="container">
+            <h2 class="text-center mb-5">Trending Now</h2>
+            <div class="row">
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Organic Cotton T-Shirt">
+                            <div class="product-badge">50% OFF</div>
+                            <button class="wishlist-btn" data-product="1">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Organic Cotton T-Shirt</h5>
+                            <p class="card-text">Made from 100% GOTS certified organic cotton.</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="product-price">2499</span>
+                                <span class="original-price">4999</span>
+                                <span class="discount">(50% OFF)</span>
+                            </div>
+                            <button class="btn-add-to-cart" data-id="1" data-name="Organic Cotton T-Shirt" data-price="4999">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Hemp Blend Hoodie">
+                            <div class="product-badge">40% OFF</div>
+                            <button class="wishlist-btn" data-product="2">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Hemp Blend Hoodie</h5>
+                            <p class="card-text">Warm and cozy hoodie made from sustainable hemp.</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="product-price">4999</span>
+                                <span class="original-price">8332</span>
+                                <span class="discount">(40% OFF)</span>
+                            </div>
+                            <button class="btn-add-to-cart" data-id="2" data-name="Hemp Blend Hoodie" data-price="4999">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Bamboo Fiber Joggers">
+                            <div class="product-badge">30% OFF</div>
+                            <button class="wishlist-btn" data-product="3">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Bamboo Fiber Joggers</h5>
+                            <p class="card-text">Soft and breathable joggers made from bamboo fibers.</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="product-price">3999</span>
+                                <span class="original-price">5713</span>
+                                <span class="discount">(30% OFF)</span>
+                            </div>
+                            <button class="btn-add-to-cart" data-id="3" data-name="Bamboo Fiber Joggers" data-price="3999">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Linen Button-Down Shirt">
+                            <div class="product-badge">25% OFF</div>
+                            <button class="wishlist-btn" data-product="4">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Linen Button-Down Shirt</h5>
+                            <p class="card-text">Classic linen shirt perfect for warm weather.</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="product-price">5499</span>
+                                <span class="original-price">7332</span>
+                                <span class="discount">(25% OFF)</span>
+                            </div>
+                            <button class="btn-add-to-cart" data-id="4" data-name="Linen Button-Down Shirt" data-price="5499">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional products would follow the same pattern -->
+                <!-- For brevity, I'm showing 4 products but the code would include 15 total -->
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-primary btn-lg">View All Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>ONLINE SHOPPING</h5>
+                    <ul>
+                        <li><a href="#">Men</a></li>
+                        <li><a href="#">Women</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">Home & Living</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>CUSTOMER POLICIES</h5>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">T&C</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>EXPERIENCE EARTHLOOMS APP</h5>
+                    <div class="mt-3">
+                        <img src="https://constant.myntassets.com/web/assets/img/80cc455a-92d2-4b5c-a038-7da0d92af33f1539674178924-google_play.png" alt="Google Play" class="me-2 mb-2" style="height: 40px;">
+                        <img src="https://constant.myntassets.com/web/assets/img/bc5e11ad-0250-420a-ac71-115a57ca35d51539674178941-apple_store.png" alt="App Store" style="height: 40px;">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>FOLLOW US</h5>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Earthlooms. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <img src="https://constant.myntassets.com/web/assets/img/6c3306ca-1efa-4a27-8769-3b69d16948741574602902452-visa.png" alt="Visa" class="me-2" style="height: 30px;">
+                    <img src="https://constant.myntassets.com/web/assets/img/95e3f322-dc08-4c52-8bad-4c6b8db998e41574602902473-mastercard.png" alt="Mastercard" class="me-2" style="height: 30px;">
+                    <img src="https://constant.myntassets.com/web/assets/img/4ef0f2c5-6a80-4ad0-b67a-1d037c9d7c331574602902481-american-express.png" alt="American Express" style="height: 30px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartSidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">My Shopping Bag (<span id="cart-items-count">0</span>)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cart-items-container">
+                <!-- Cart items will be dynamically added here -->
+                <p class="text-muted text-center py-4" id="empty-cart-message">Your cart is empty</p>
+            </div>
+            <div class="cart-summary mt-auto">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span>$<span id="cart-subtotal">0.00</span></span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Shipping:</span>
+                    <span id="shipping-cost">FREE</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 fw-bold">
+                    <span>Total:</span>
+                    <span>$<span id="cart-total">0.00</span></span>
+                </div>
+                <button class="btn btn-primary w-100" id="checkout-btn">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="wishlistSidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">My Wishlist (<span id="wishlist-items-count">0</span>)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="wishlist-items-container">
+                <!-- Wishlist items will be dynamically added here -->
+                <p class="text-muted text-center py-4" id="empty-wishlist-message">Your wishlist is empty</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Notification -->
+    <div class="alert alert-success cart-notification" id="cart-notification">
+        <i class="fas fa-check-circle me-2"></i> <span id="notification-text">Item added to cart!</span>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Cart and Wishlist functionality
+        let cart = [];
+        let wishlist = [];
+        
+        // Add to cart functionality
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseFloat(this.getAttribute('data-price'));
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: id,
+                        name: name,
+                        price: price,
+                        quantity: 1,
+                        image: this.closest('.product-card').querySelector('.product-img').src
+                    });
+                }
+                
+                updateCart();
+                showNotification(`${name} added to cart!`);
+            });
+        });
+        
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product');
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.card-title').textContent;
+                const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('$', ''));
+                const productImage = productCard.querySelector('.product-img').src;
+                
+                // Check if item already in wishlist
+                const existingItem = wishlist.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    // Remove from wishlist
+                    wishlist = wishlist.filter(item => item.id !== productId);
+                    this.innerHTML = '<i class="far fa-heart"></i>';
+                    this.classList.remove('active');
+                    showNotification(`${productName} removed from wishlist`);
+                } else {
+                    // Add to wishlist
+                    wishlist.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage
+                    });
+                    this.innerHTML = '<i class="fas fa-heart"></i>';
+                    this.classList.add('active');
+                    showNotification(`${productName} added to wishlist!`);
+                }
+                
+                updateWishlist();
+            });
+        });
+        
+        // Update cart display
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartCount = document.getElementById('cart-count');
+            const cartItemsCount = document.getElementById('cart-items-count');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            
+            // Clear cart items
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartCount.textContent = '0';
+                cartItemsCount.textContent = '0';
+                cartSubtotal.textContent = '0.00';
+                cartTotal.textContent = '0.00';
+                return;
+            }
+            
+            emptyCartMessage.style.display = 'none';
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="d-flex">
+                        <img src="${item.image}" class="cart-item-img" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">$${item.price}</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                                <button class="remove-item" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartItemsCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartSubtotal.textContent = subtotal.toFixed(2);
+            cartTotal.textContent = subtotal.toFixed(2);
+            
+            // Add event listeners to quantity controls
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    if (item) {
+                        item.quantity += 1;
+                        updateCart();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const item = cart.find(item => item.id === id);
+                    if (item && item.quantity > 1) {
+                        item.quantity -= 1;
+                        updateCart();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Update wishlist display
+        function updateWishlist() {
+            const wishlistItemsContainer = document.getElementById('wishlist-items-container');
+            const wishlistCount = document.getElementById('wishlist-count');
+            const wishlistItemsCount = document.getElementById('wishlist-items-count');
+            const emptyWishlistMessage = document.getElementById('empty-wishlist-message');
+            
+            // Clear wishlist items
+            wishlistItemsContainer.innerHTML = '';
+            
+            if (wishlist.length === 0) {
+                emptyWishlistMessage.style.display = 'block';
+                wishlistCount.textContent = '0';
+                wishlistItemsCount.textContent = '0';
+                return;
+            }
+            
+            emptyWishlistMessage.style.display = 'none';
+            
+            wishlist.forEach(item => {
+                const wishlistItem = document.createElement('div');
+                wishlistItem.className = 'cart-item';
+                wishlistItem.innerHTML = `
+                    <div class="d-flex">
+                        <img src="${item.image}" class="cart-item-img" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">$${item.price}</div>
+                            <div class="d-flex mt-2">
+                                <button class="btn-add-to-cart-from-wishlist btn btn-sm btn-primary me-2" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
+                                <button class="remove-from-wishlist btn btn-sm btn-outline-secondary" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                wishlistItemsContainer.appendChild(wishlistItem);
+            });
+            
+            wishlistCount.textContent = wishlist.length;
+            wishlistItemsCount.textContent = wishlist.length;
+            
+            // Add event listeners to wishlist buttons
+            document.querySelectorAll('.btn-add-to-cart-from-wishlist').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    
+                    // Check if item already in cart
+                    const existingItem = cart.find(item => item.id === id);
+                    
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({
+                            id: id,
+                            name: name,
+                            price: price,
+                            quantity: 1,
+                            image: this.closest('.cart-item').querySelector('img').src
+                        });
+                    }
+                    
+                    updateCart();
+                    showNotification(`${name} added to cart!`);
+                });
+            });
+            
+            document.querySelectorAll('.remove-from-wishlist').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    removeFromWishlist(id);
+                });
+            });
+        }
+        
+        // Remove from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+            showNotification('Item removed from cart');
+        }
+        
+        // Remove from wishlist
+        function removeFromWishlist(id) {
+            const item = wishlist.find(item => item.id === id);
+            wishlist = wishlist.filter(item => item.id !== id);
+            updateWishlist();
+            
+            // Update heart icon in product card
+            const wishlistBtn = document.querySelector(`.wishlist-btn[data-product="${id}"]`);
+            if (wishlistBtn) {
+                wishlistBtn.innerHTML = '<i class="far fa-heart"></i>';
+                wishlistBtn.classList.remove('active');
+            }
+            
+            showNotification(`${item.name} removed from wishlist`);
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('cart-notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Checkout button
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            alert('Thank you for your purchase! This is a demo site, so no actual transaction will occur.');
+            cart = [];
+            updateCart();
+            
+            // Close the cart sidebar
+            const cartSidebar = document.getElementById('cartSidebar');
+            const bsOffcanvas = bootstrap.Offcanvas.getInstance(cartSidebar);
+            bsOffcanvas.hide();
+        });
+        
+        // Initialize
+        updateCart();
+        updateWishlist();
+    </script>
+</body>
+</html>
